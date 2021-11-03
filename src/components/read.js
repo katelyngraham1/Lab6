@@ -6,10 +6,11 @@ class Read extends Component
 {
     // lifecycle method 
     componentDidMount() {
-        axios.get('https://jsonblob.com/api/jsonblob/894944504570986496')
+        //asynchronise
+        axios.get('http://localhost:4000/api/movies')
         .then((response)=>{
             // updates the state mymovies
-            this.setState({ mymovies:response.data.movies})
+            this.setState({ mymovies:response.data.mymovies})
         })
         .catch((error)=>{
             console.log(error);

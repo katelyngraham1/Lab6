@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios'; // allows to talk http
 
 class Create extends Component {
     constructor() {
@@ -15,14 +16,29 @@ class Create extends Component {
         }
     }
     
-    // alert pop up of data once added 
     handleSubmit(event) {
+        // Output movie data
         alert('Movie Name: ' + this.state.Title + 
         '  Movie Year: ' + this.state.Year + 
         '  Movie Poster: ' + this.state.Poster);
 
+        const NewMovie = {
+            Title:this.state.Title,
+            Year:this.state.Year,
+            Poster:this.state.Poster
+        }
+        // URl and what is being sent
+        axios.post('http://localhost:4000/api/movies', NewMovie)
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+
+        //Stop handleSubmit refreshing page (return value as blank)
         event.preventDefault();
-        // set all fields blank
+        // Removes values left in input boxes (doesn't reset values to default)
         this.setState({
             Title:'',
             Year: '',
